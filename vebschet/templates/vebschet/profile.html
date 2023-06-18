@@ -1,10 +1,14 @@
-{% extends 'vebschet/base.html' %}
-
-{% block content %}
-  <h2>Login</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-  </form>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>{{ user_profile.user.username }}</h1>
+    <p>First name: {{ user_profile.first_name }}</p>
+    <p>Last name: {{ user_profile.last_name }}</p>
+    <p>Patronymic: {{ user_profile.patronymic }}</p>
+    <p>Plot number: {{ user_profile.plot_number }}</p>
+    <p>Counter number: {{ user_profile.counter_number }}</p>
+</body>
+</html>
