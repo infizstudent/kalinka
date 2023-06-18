@@ -56,7 +56,7 @@ ROOT_URLCONF = 'kalinka.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'vebschet', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'vebschet', 'templates', 'vebschet')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,6 +68,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'kalinka.wsgi.application'
 
@@ -126,11 +127,3 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'profile'
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'kalinkadmn@gmail.com'
-EMAIL_HOST_PASSWORD = 'CgExh84F76'
-

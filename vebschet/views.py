@@ -1,27 +1,24 @@
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView
-from django.urls import reverse
 from django.contrib.auth.models import User
-from vebschet.forms import UserRegisterForm, UserProfileForm
-from django.shortcuts import render, redirect
 from vebschet.models import UserProfile
 from django.http import HttpResponse
 import json
-from django.contrib.auth import update_session_auth_hash
-from .forms import UserPasswordChangeForm
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import UserRegisterForm, UserProfileForm
+from django.contrib.auth.views import LoginView
+from django.urls import reverse
 
 
 @login_required
 def profile(request, username):
     if username != request.user.username:
         return redirect('profile', username=request.user.username)
-        # вместо этого вы можете вернуть HttpResponseForbidden, если хотите выдать ошибку 403
-
     user = User.objects.get(username=username)
     user_profile = UserProfile.objects.get(user=user)
     user = User.objects.get(username=username)
     user_profile = UserProfile.objects.get(user=user)
-
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=user_profile)
         if form.is_valid():
@@ -46,7 +43,8 @@ def profile(request, username):
 
 class CustomLoginView(LoginView):
     def get_success_url(self):
-        return reverse('profile', args=[self.request.user.username])
+        username = self.request.user.username
+        return reverse('profile', args=[username])
 
 
 def index(request):
@@ -56,29 +54,13 @@ def index(request):
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
-        profile_form = UserProfileForm(request.POST)
-        if form.is_valid() and profile_form.is_valid():
-            user = form.save()
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            profile.save()
-            return redirect('profile', username=user.username)
-    else:
-        form = UserRegisterForm()
-        profile_form = UserProfileForm()
-    return render(request, 'vebschet/register.html', {'form': form, 'profile_form': profile_form})
-
-
-@login_required
-def password_change(request):
-    if request.method == 'POST':
-        form = UserPasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
-            update_session_auth_hash(request, user)  # обновляем сессию пользователя, чтобы избежать выхода из системы после смены пароля
-            return redirect('profile', username=request.user.username)
-        else:
-            pass
+            UserProfile.objects.create(user=user)  # Создание UserProfile при регистрации
+            username = form.cleaned_data.get('username')
+            login(request, user)  # войти в систему после регистрации
+            messages.success(request, f'Your account has been created! You are now able to log in')
+            return redirect('profile', username=username)
     else:
-        form = UserPasswordChangeForm(request.user)
-    return render(request, 'users/password_change.html', {'form': form})
+        form = UserRegisterForm()
+    return render(request, 'vebschet/register.html', {'form': form})
