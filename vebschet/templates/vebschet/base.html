@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kalinka</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f9f9f9;
+            color: #000000; /* Блок добавлен */
+        }
+        header {
+            background: #e0e0e0; /* Блок изменен */
+            color: #000000; /* Блок изменен */
+            padding: 10px 0;
+        }
+        header h1 {
+            margin: 0;
+            padding: 0 20px;
+            float: left;
+            font-size: 2em;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            float: right;
+        }
+        nav ul li {
+            display: inline-block;
+            margin-left: 20px;
+        }
+        nav ul li a {
+            color: #000000; /* Блок изменен */
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        main {
+            padding: 20px;
+            background: #ffffff;
+            margin: 20px;
+            font-size: 1.2em;
+        }
+        footer {
+            background: #e0e0e0; /* Блок изменен */
+            color: #000000; /* Блок изменен */
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Kalinka</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/register/">Register</a></li>
+                <li><a href="/login/">Login</a></li>
+                <li><a href="/logout/">Logout</a></li>
+                <li><a href="/profile/">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Kalinka</p>
+    </footer>
+</body>
+</html>
