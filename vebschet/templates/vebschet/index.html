@@ -2,12 +2,27 @@
 <html>
 <head>
     <title>Kalinka - Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to Kalinka!</h1>
-    <p>This is the home page of Kalinka.</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <h1>Welcome to Kalinka!</h1>
+                <p>This is the home page of Kalinka.</p>
+            </div>
+            <div class="col-12 col-md-6">
+                <a href="{% url 'register' %}" class="btn btn-primary btn-block mb-2">Register</a>
+                <a href="/login/" class="btn btn-outline-primary btn-block">Login</a>
+            </div>
+        </div>
+    </div>
 
-    <a href="{% url 'register' %}"><button>Register</button></a>
-    <a href="/login/">Login</a>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

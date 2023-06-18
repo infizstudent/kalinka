@@ -1,9 +1,47 @@
 <!DOCTYPE html>
-<html>
-  <h2>Login</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-  </form>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сторінка входу</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .form-group {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <h2 class="text-center mb-4">Вхід</h2>
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+          </div>
+          <div class="form-group">
+            {{ form.password.label_tag }}
+            {{ form.password }}
+          </div>
+          <div class="text-center">
+            <button class="btn btn-primary" type="submit">Увійти</button>
+          </div>
+        </form>
+        <div class="text-center mt-3">
+          <p>Якщо у вас немає облікового запису, <a href="/register/">Зареєструйтесь</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
 </html>

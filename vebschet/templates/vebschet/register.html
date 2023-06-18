@@ -1,20 +1,92 @@
 <!DOCTYPE html>
 <html>
-<div class="content-section">
-        <form method="POST">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .content-section {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+        }
+        .content-section legend {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .text-muted {
+            font-size: 14px;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-container .form-group label {
+            font-weight: bold;
+        }
+        .form-container .form-group button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .form-container .border-top {
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #ced4da;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-section">
+        <form method="POST" class="form-container">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Регистрация</legend>
-                {{ form.as_p }}
+                <legend class="border-bottom mb-4">Реєстрація</legend>
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}">Ім'я користувача:</label>
+                    {{ form.username }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}">Email:</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.password1.id_for_label }}">Пароль:</label>
+                    {{ form.password1 }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.password2.id_for_label }}">Підтвердження паролю:</label>
+                    {{ form.password2 }}
+                </div>
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Регистрация</button>
+                <button class="btn btn-primary" type="submit">Зареєструватися</button>
             </div>
         </form>
         <div class="border-top pt-3">
             <small class="text-muted">
-                Уже зарегистрированы? <a class="ml-2" href="/login/">Войти</a>
+                Вже зареєстровані? <a class="ml-2" href="/login/">Увійти</a>
             </small>
         </div>
     </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
 </html>
