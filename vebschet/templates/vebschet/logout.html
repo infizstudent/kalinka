@@ -1,6 +1,62 @@
-{% extends 'vebschet/base.html' %}
-
-{% block content %}
-  <h2>Logout</h2>
-  <p>You have been logged out successfully.</p>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сторінка виходу</title>
+  <meta name="description" content="Вихід">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 400px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .form-title {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .text-center {
+      text-align: center;
+    }
+    .btn-link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-link:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="form-title">
+      <h2>Допобачення!</h2>
+    </div>
+    <div class="text-center">
+      <p>Ви успішно вийшли з облікового запису. Будемо раді вас знову бачити!  <a href="/login/"> Увійти</a></p>
+    </div>
+  </div>
+</body>
+</html>

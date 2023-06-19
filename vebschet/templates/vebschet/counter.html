@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enter Meter Reading</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-3">Enter Meter Reading</h1>
+        <h1>Welcome, {{ username }}</h1>
+        <p>Your counter value is: {{ counter }}</p>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="reading">Meter Reading:</label>
+                {{ form.reading }}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <a href="{% url 'reading_list' %}" class="btn btn-secondary mt-3">View Reading List</a>
+        <a href="/logout/" class="btn btn-secondary mt-3">Logout</a>
+    </div>
+</body>
+</html>

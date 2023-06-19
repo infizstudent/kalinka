@@ -5,61 +5,118 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Сторінка входу</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <meta name="description" content="Вхід">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
   <style>
     body {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 400px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .form-title {
+      text-align: center;
+      margin-bottom: 20px;
     }
     .form-group {
-      text-align: center;
+      text-align: left;
+      margin-bottom: 15px;
     }
-    .text-danger {
+    .form-group label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+    .form-group .text-danger {
       color: red;
       font-size: 14px;
       margin-top: 5px;
+    }
+    .form-actions {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .form-actions button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      font-size: 14px; /* Changed the font size from 16px to 14px */
+      background-color: #007bff;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .form-actions button:hover {
+      background-color: #0056b3;
+    }
+    .register-link {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .register-link a {
+      color: #007bff;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <h2 class="text-center mb-4">Вхід</h2>
-        <form method="post">
-          {% csrf_token %}
-          <div class="form-group">
-            {{ form.username.label_tag }}
-            {{ form.username }}
-            {% if form.username.errors %}
-              <div class="text-danger">
-                {% for error in form.username.errors %}
-                  {{ error }}
-                {% endfor %}
-              </div>
-            {% endif %}
+    <div class="form-title">
+      <h2>Вхід</h2>
+    </div>
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="username">Ім'я користувача</label>
+        <input type="text" id="username" name="username">
+        {% if form.username.errors %}
+          <div class="text-danger">
+            {% for error in form.username.errors %}
+              {{ error }}
+            {% endfor %}
           </div>
-          <div class="form-group">
-            {{ form.password.label_tag }}
-            {{ form.password }}
-            {% if form.password.errors %}
-              <div class="text-danger">
-                {% for error in form.password.errors %}
-                  {{ error }}
-                {% endfor %}
-              </div>
-            {% endif %}
-          </div>
-          <div class="text-center">
-            <button class="btn btn-primary" type="submit">Увійти</button>
-          </div>
-        </form>
-        <div class="text-center mt-3">
-          <p>Якщо у вас немає облікового запису, <a href="/register/">Зареєструйтесь</a></p>
-        </div>
+        {% endif %}
       </div>
+      <div class="form-group">
+        <label for="password">Пароль</label>
+        <input type="password" id="password" name="password">
+        {% if form.password.errors %}
+          <div class="text-danger">
+            {% for error in form.password.errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      <div class="form-actions">
+        <button type="submit">Увійти</button>
+      </div>
+    </form>
+    <div class="register-link">
+      <p>Якщо у вас немає облікового запису, <a href="/register/">Зареєструйтесь</a></p>
     </div>
   </div>
 </body>

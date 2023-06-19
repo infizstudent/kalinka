@@ -1,106 +1,125 @@
 <!DOCTYPE html>
-<html>
+<html lang="uk">
 <head>
-    <title>User Profile</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        form {
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        button[type="submit"] {
-            width: 100%;
-        }
-
-        #user-info {
-            margin-top: 20px;
-        }
-
-        #user-info p {
-            margin-bottom: 10px;
-        }
-
-        #user-info strong {
-            font-weight: bold;
-        }
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Профіль користувача</title>
+  <meta name="description" content="Інформація про користувача">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 400px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    form {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+    button[type="submit"] {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+    #user-info {
+      margin-top: 10px;
+    }
+    #user-info p {
+      margin-bottom: 5px;
+    }
+    #user-info strong {
+      font-weight: bold;
+    }
+    .logout-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #6c757d;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .logout-btn:hover {
+      background-color: #5a6268;
+    }
+    .smaller-text {
+      font-size: 12px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="mt-5 mb-3">{{ user_profile.user.username }}</h1>
-        <form id="profile-form" method="post" class="mb-5">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="first-name">First name:</label>
-                <input type="text" class="form-control" id="first-name" name="first_name" value="{{ user_profile.first_name }}">
-            </div>
-            <div class="form-group">
-                <label for="last-name">Last name:</label>
-                <input type="text" class="form-control" id="last-name" name="last_name" value="{{ user_profile.last_name }}">
-            </div>
-            <div class="form-group">
-                <label for="patronymic">Patronymic:</label>
-                <input type="text" class="form-control" id="patronymic" name="patronymic" value="{{ user_profile.patronymic }}">
-            </div>
-            <div class="form-group">
-                <label for="field">Field:</label>
-                <input type="text" class="form-control" id="field" name="field" value="{{ user_profile.field }}">
-            </div>
-            <div class="form-group">
-                <label for="counter">Counter:</label>
-                <input type="text" class="form-control" id="counter" name="counter" value="{{ user_profile.counter }}">
-            </div>
-            <button type="submit" class="btn btn-primary">Save</button>
-        </form>
-        <div id="user-info">
-            <p><strong>First name:</strong> <span id="display-first-name">{{ user_profile.first_name }}</span></p>
-            <p><strong>Last name:</strong> <span id="display-last-name">{{ user_profile.last_name }}</span></p>
-            <p><strong>Patronymic:</strong> <span id="display-patronymic">{{ user_profile.patronymic }}</span></p>
-            <p><strong>Field:</strong> <span id="display-field">{{ user_profile.field }}</span></p>
-            <p><strong>Counter:</strong> <span id="display-counter">{{ user_profile.counter }}</span></p>
-        </div>
-        <a href="/logout/" class="btn btn-secondary mt-3">Logout</a>
-    </div>
-    <script>
-        $("#profile-form").on("submit", function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: "",
-                type: "POST",
-                data: $(this).serialize(),
-                success: function(data) {
-                    $("#display-first-name").text(data.first_name);
-                    $("#display-last-name").text(data.last_name);
-                    $("#display-patronymic").text(data.patronymic);
-                    $("#display-field").text(data.field);
-                    $("#display-counter").text(data.counter);
-                }
-            });
-        });
-    </script>
+  <div class="container">
+    <h1>{{ user_profile.user.username }}</h1>
+    <form id="profile-form" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="first-name">Ім'я:</label>
+        <input type="text" id="first-name" name="first_name" value="{{ user_profile.first_name }}">
+      </div>
+      <div class="form-group">
+        <label for="last-name">Прізвище:</label>
+        <input type="text" id="last-name" name="last_name" value="{{ user_profile.last_name }}">
+      </div>
+      <div class="form-group">
+        <label for="patronymic">По батькові:</label>
+        <input type="text" id="patronymic" name="patronymic" value="{{ user_profile.patronymic }}">
+      </div>
+      <div class="form-group">
+        <label for="field">Сфера:</label>
+        <input type="text" id="field" name="field" value="{{ user_profile.field }}">
+      </div>
+      <div class="form-group">
+        <label for="counter">Лічильник:</label>
+        <input type="text" id="counter" name="counter" value="{{ user_profile.counter }}">
+      </div>
+      <button type="submit" class="smaller-text">Зберегти</button>
+      <button class="logout-btn smaller-text" onclick="location.href='/logout/';">Вийти</button>
+    </form>
+  </div>
 </body>
 </html>

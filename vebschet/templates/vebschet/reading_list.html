@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reading List</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h2>Reading List for {{ username }}</h2>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Meter Reading</th>
+        </tr>
+        {% for reading in meter_readings %}
+        <tr>
+            <td>{{ reading.date }}</td>
+            <td>{{ reading.reading }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
