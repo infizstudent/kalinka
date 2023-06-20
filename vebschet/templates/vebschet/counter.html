@@ -41,7 +41,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        <a href="{% url 'reading_list' %}" class="btn btn-secondary mt-3">View Reading List</a>
+        <a href="{% url 'reading_list' username=username %}" class="btn btn-secondary mt-3">View Reading List</a>
         <a href="/logout/" class="btn btn-secondary mt-3">Logout</a>
     </div>
 </body>

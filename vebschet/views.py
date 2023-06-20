@@ -87,12 +87,12 @@ def counter_view(request, username):
     else:
         form = MeterReadingForm(initial={'user': user})
 
-    return render(request, 'vebschet/counter.html', {'form': form})
+    return render(request, 'vebschet/counter.html', {'form': form, 'username': username})
 
 
 
 @login_required
-def reading_list(request, username):
+def user_reading_list(request, username):
     if username != request.user.username:
         return redirect('profile', username=request.user.username)
 
@@ -103,6 +103,11 @@ def reading_list(request, username):
 
 
 @login_required
-def reading_list(request):
-    readings = MeterReading.objects.filter(user=request.user).order_by('-date')
-    return render(request, 'vebschet/reading_list.html', {'readings': readings})
+def reading_list(request, username):
+    if username != request.user.username:
+        return redirect('profile', username=request.user.username)
+
+    user = User.objects.get(username=username)
+    meter_readings = MeterReading.objects.filter(user=user).order_by('-date')
+    return render(request, 'vebschet/reading_list.html', {'meter_readings': meter_readings, 'username': username})
+
