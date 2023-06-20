@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<div class="custom-container">
+  <h2>Profile Settings</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save changes</button>
+  </form>
+</div>
+  <a href="{% url 'counter' username=request.user.username %}" class="btn btn-light">Back</a>
+{% endblock %}

@@ -16,6 +16,8 @@ urlpatterns = [
     path('set_language/', set_language, name='set_language'),
     path('counter/<str:username>/', vebschet_views.counter_view, name='counter'),
     path('reading_list/<str:username>/', views.reading_list, name='reading_list'),
+    path('settings/<str:username>/', vebschet_views.settings, name='settings'),
+
 ]
 
 urlpatterns += [

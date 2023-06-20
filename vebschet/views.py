@@ -90,7 +90,6 @@ def counter_view(request, username):
     return render(request, 'vebschet/counter.html', {'form': form, 'username': username})
 
 
-
 @login_required
 def user_reading_list(request, username):
     if username != request.user.username:
@@ -110,4 +109,24 @@ def reading_list(request, username):
     user = User.objects.get(username=username)
     meter_readings = MeterReading.objects.filter(user=user).order_by('-date')
     return render(request, 'vebschet/reading_list.html', {'meter_readings': meter_readings, 'username': username})
+
+
+@login_required
+def settings(request, username):
+    if username != request.user.username:
+        return redirect('profile', username=request.user.username)
+
+    user = User.objects.get(username=username)
+    user_profile = UserProfile.objects.get(user=user)
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully')
+            return redirect('counter', username=username) # Change is here
+    else:
+        form = UserProfileForm(instance=user_profile)
+
+    return render(request, 'vebschet/settings.html', {'form': form})
 

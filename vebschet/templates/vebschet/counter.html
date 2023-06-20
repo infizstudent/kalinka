@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html>
+{% extends "base_generic.html" %}
+
+{% block content %}
 <head>
     <title>Enter Meter Reading</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -9,14 +10,13 @@
             font-family: Arial, sans-serif;
         }
 
-        .container {
+        .my-custom-container {
             max-width: 500px;
             margin: 0 auto;
             padding: 20px;
             background-color: #ffffff;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
 
         h1 {
             text-align: center;
@@ -29,10 +29,9 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="mt-5 mb-3">Enter Meter Reading</h1>
-        <h1>Welcome, {{ username }}</h1>
-        <p>Your counter value is: {{ counter }}</p>
+    <div class="my-custom-container">
+        <h3>{{ username }}</h3>
+        <h4 class="mt-5 mb-3">Enter Meter Reading</h4>
         <form method="post">
             {% csrf_token %}
             <div class="form-group">
@@ -41,8 +40,6 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        <a href="{% url 'reading_list' username=username %}" class="btn btn-secondary mt-3">View Reading List</a>
-        <a href="/logout/" class="btn btn-secondary mt-3">Logout</a>
     </div>
 </body>
-</html>
+{% endblock content %}
