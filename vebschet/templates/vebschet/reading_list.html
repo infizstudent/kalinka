@@ -34,11 +34,13 @@
         <tr>
             <th>Date</th>
             <th>Meter Reading</th>
+            <th>How I Receive</th> <!-- new header -->
         </tr>
         {% for reading in meter_readings %}
         <tr>
             <td>{{ reading.date }}</td>
             <td>{{ reading.reading }}</td>
+            <td>{{ reading.howireceive }}</td> <!-- new data column -->
         </tr>
         {% endfor %}
     </table>

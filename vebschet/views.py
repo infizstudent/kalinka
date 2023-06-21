@@ -49,18 +49,14 @@ class CustomLoginView(LoginView):
             return reverse('profile', args=[username])
 
 
-def index(request):
-    return render(request, 'vebschet/index.html')
-
-
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-            UserProfile.objects.create(user=user)  # Создание UserProfile при регистрации
+            UserProfile.objects.create(user=user)
             username = form.cleaned_data.get('username')
-            login(request, user)  # войти в систему после регистрации
+            login(request, user)
             messages.success(request, f'Your account has been created! You are now able to log in')
             return redirect('profile', username=username)
     else:
@@ -82,12 +78,16 @@ def counter_view(request, username):
             meter_reading = form.save(commit=False)
             meter_reading.user = user
             meter_reading.counter = user_profile
+
+            meter_reading.howireceive = "add from the system"
+
             meter_reading.save()
             return redirect('reading_list', username=username)
     else:
         form = MeterReadingForm(initial={'user': user})
 
     return render(request, 'vebschet/counter.html', {'form': form, 'username': username})
+
 
 
 @login_required
@@ -124,9 +124,12 @@ def settings(request, username):
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully')
-            return redirect('counter', username=username) # Change is here
+            return redirect('counter', username=username)
     else:
         form = UserProfileForm(instance=user_profile)
 
     return render(request, 'vebschet/settings.html', {'form': form})
 
+
+def index(request):
+    return render(request, 'vebschet/index.html')

@@ -10,7 +10,11 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 @admin.register(MeterReading)
 class MeterReadingAdmin(admin.ModelAdmin):
-    list_display = ['user', 'reading', 'date']
+    list_display = ('user', 'get_user_counter', 'reading', 'date')
     search_fields = ['user__username']
     list_filter = ['date']
+
+    def get_user_counter(self, obj):
+        return obj.counter.counter
+    get_user_counter.short_description = 'Counter'
 

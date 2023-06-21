@@ -1,14 +1,81 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-
-<div class="custom-container">
-  <h2>Profile Settings</h2>
-  <form method="POST">
+<style>
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    form {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+    button[type="submit"] {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+    #user-info {
+      margin-top: 10px;
+    }
+    #user-info p {
+      margin-bottom: 5px;
+    }
+    #user-info strong {
+      font-weight: bold;
+    }
+    .logout-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #6c757d;
+      border: none;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .logout-btn:hover {
+      background-color: #5a6268;
+    }
+    .smaller-text {
+      font-size: 12px;
+    }
+</style>
+<div class="custom-container my-5">
+  <h2 class="mb-4">Profile Settings</h2>
+  <form method="POST" class="mb-4">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Save changes</button>
+    <button type="submit" class="btn btn-primary">Save changes</button>
   </form>
-</div>
   <a href="{% url 'counter' username=request.user.username %}" class="btn btn-light">Back</a>
+</div>
 {% endblock %}
