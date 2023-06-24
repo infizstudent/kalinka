@@ -1,0 +1,22 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <div class="custom-container">
+        <h1>Electricity Cost Calculator</h1>
+        <p>Electricity price: {{ electricity_price.price }} grn.</p>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Calculate</button>
+        </form>
+        {% if difference %}
+            <p>Date difference: {{ difference }} days.</p>
+        {% endif %}
+        {% if consumption %}
+            <p>Consumption: {{ consumption }} units.</p>
+        {% endif %}
+        {% if total_coast %}
+        <p>Total cost: {{ total_coast }} grn.</p>
+        {% endif %}
+    </div>
+{% endblock content %}

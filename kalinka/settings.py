@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-o7se3)_m7l&&uswj%r#$00pjyyjmzi$+77p0gr%a-b)&p#0&e#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['.http://kalinkatest.hhos.net/']
 
 
 # Application definition
@@ -141,3 +141,4 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

@@ -33,7 +33,15 @@ class MeterReading(models.Model):
         super().save(*args, **kwargs)
 
 
+class ElectricityPrice(models.Model):
+    price = models.DecimalField(max_digits=5, decimal_places=2)
 
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super(ElectricityPrice, self).save(*args, **kwargs)
 
-
+    @classmethod
+    def load(cls):
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
 

@@ -56,6 +56,7 @@
                         <a class="dropdown-item" href="{% url 'settings' username=request.user.username %}">Profile Settings</a>
                         <a class="dropdown-item" href="{% url 'counter' username=request.user.username %}">Enter Readings</a>
                         <a class="dropdown-item" href="{% url 'reading_list' username=request.user.username %}">View Reading List</a>
+                        <a class="dropdown-item" href="{% url 'electricity_coast' %}">Electricity Coast</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/logout/">Logout</a>
                     </div>

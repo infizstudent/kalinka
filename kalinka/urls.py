@@ -17,7 +17,7 @@ urlpatterns = [
     path('counter/<str:username>/', vebschet_views.counter_view, name='counter'),
     path('reading_list/<str:username>/', views.reading_list, name='reading_list'),
     path('settings/<str:username>/', vebschet_views.settings, name='settings'),
-
+    path('electricity_coast/', vebschet_views.electricity_coast_view, name='electricity_coast'),
 ]
 
 urlpatterns += [
