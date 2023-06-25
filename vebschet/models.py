@@ -19,6 +19,7 @@ class UserProfile(models.Model):
 
 
 class MeterReading(models.Model):
+    objects = None
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     reading = models.PositiveIntegerField()
     date = models.DateTimeField(auto_now_add=True)

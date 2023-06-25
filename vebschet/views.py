@@ -2,12 +2,12 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 import json
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .forms import UserRegisterForm, UserProfileForm, MeterReadingForm, ElectricityCoastCalculatorForm
 from django.contrib.auth.views import LoginView
 from django.urls import reverse
-from .models import UserProfile, MeterReading
+from .models import UserProfile, MeterReading, ElectricityPrice
 
 
 @login_required
@@ -119,17 +119,19 @@ def settings(request, username):
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=user_profile)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Profile updated successfully')
-            return redirect('counter', username=username)
+            for field in form.fields:
+                if not form.cleaned_data[field]:
+                    form.add_error(field, 'This field cannot be empty')
+            if not form.errors:
+                form.save()
+                messages.success(request, 'Profile updated successfully')
+                return redirect('counter', username=username)
     else:
         form = UserProfileForm(instance=user_profile)
 
     return render(request, 'vebschet/settings.html', {'form': form})
 
 
-from django.shortcuts import get_object_or_404
-from .models import ElectricityPrice
 
 @login_required
 def electricity_price_view(request):
@@ -165,7 +167,7 @@ def electricity_coast_view(request):
         'form': form,
         'total_coast': total_coast,
         'consumption': consumption,
-        'meter_readings': meter_readings  # Add the meter readings to the context here
+        'meter_readings': meter_readings
     })
 
 
