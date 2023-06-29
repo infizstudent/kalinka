@@ -45,4 +45,3 @@ class ElectricityPrice(models.Model):
     def load(cls):
         obj, created = cls.objects.get_or_create(pk=1)
         return obj
-

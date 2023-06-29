@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.views.i18n import set_language
-from vebschet import views as vebschet_views, views
+from vebschet import views as vebschet_views
 from django.contrib.auth import views as auth_views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from vebschet.views import CustomLoginView
@@ -15,7 +15,7 @@ urlpatterns = [
     path('', vebschet_views.index, name='index'),
     path('set_language/', set_language, name='set_language'),
     path('counter/<str:username>/', vebschet_views.counter_view, name='counter'),
-    path('reading_list/<str:username>/', views.reading_list, name='reading_list'),
+    path('reading_list/<str:username>/', vebschet_views.reading_list, name='reading_list'),
     path('settings/<str:username>/', vebschet_views.settings, name='settings'),
     path('electricity_coast/', vebschet_views.electricity_coast_view, name='electricity_coast'),
 ]

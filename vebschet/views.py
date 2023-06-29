@@ -1,21 +1,19 @@
-from django.contrib.auth import login
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-import json
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
 from .forms import UserRegisterForm, UserProfileForm, MeterReadingForm, ElectricityCoastCalculatorForm
-from django.contrib.auth.views import LoginView
-from django.urls import reverse
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import UserProfile, MeterReading, ElectricityPrice
+from django.contrib.auth.decorators import login_required
+from .utils import get_user_profile, get_meter_readings
+from django.contrib.auth.views import LoginView
+from django.contrib.auth import login
+from django.http import HttpResponse
+from django.contrib import messages
+from django.urls import reverse
+import json
 
 
-@login_required
 def profile(request, username):
-    if username != request.user.username:
-        return redirect('profile', username=request.user.username)
+    user_profile = get_user_profile(request, username)
 
-    user_profile = request.user.userprofile
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=user_profile)
         if form.is_valid():
@@ -41,7 +39,8 @@ class CustomLoginView(LoginView):
     def get_success_url(self):
         username = self.request.user.username
         user_profile = self.request.user.userprofile
-        if all([user_profile.first_name, user_profile.last_name, user_profile.patronymic, user_profile.field is not None, user_profile.counter is not None]):
+        if all([user_profile.first_name, user_profile.last_name, user_profile.patronymic,
+                user_profile.field is not None, user_profile.counter is not None]):
             return reverse('counter', args=[username])
         else:
             return reverse('profile', args=[username])
@@ -64,10 +63,7 @@ def register(request):
 
 @login_required
 def counter_view(request, username):
-    if username != request.user.username:
-        return redirect('profile', username=request.user.username)
-
-    user_profile = request.user.userprofile
+    user_profile = get_user_profile(request, username)
 
     if request.method == 'POST':
         form = MeterReadingForm(request.POST, initial={'user': request.user})
@@ -91,30 +87,15 @@ def counter_view(request, username):
 
 
 @login_required
-def user_reading_list(request, username):
-    if username != request.user.username:
-        return redirect('profile', username=request.user.username)
-
-    meter_readings = request.user.meterreading_set.order_by('-date')
-
-    return render(request, 'vebschet/reading_list.html', {'meter_readings': meter_readings, 'username': username})
-
-
-@login_required
 def reading_list(request, username):
-    if username != request.user.username:
-        return redirect('profile', username=request.user.username)
-
-    meter_readings = request.user.meterreading_set.order_by('-date')
+    get_user_profile(request, username)
+    meter_readings = get_meter_readings(request)
     return render(request, 'vebschet/reading_list.html', {'meter_readings': meter_readings, 'username': username})
 
 
 @login_required
 def settings(request, username):
-    if username != request.user.username:
-        return redirect('profile', username=request.user.username)
-
-    user_profile = request.user.userprofile
+    user_profile = get_user_profile(request, username)
 
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=user_profile)
@@ -132,7 +113,6 @@ def settings(request, username):
     return render(request, 'vebschet/settings.html', {'form': form})
 
 
-
 @login_required
 def electricity_price_view(request):
     electricity_price = get_object_or_404(ElectricityPrice, id=1)
@@ -142,10 +122,9 @@ def electricity_price_view(request):
 @login_required
 def electricity_coast_view(request):
     electricity_price = get_object_or_404(ElectricityPrice, id=1)
-    total_coast = None  # set to None as initial value
+    total_coast = None
     consumption = None
 
-    # Retrieve the meter readings for the current user
     meter_readings = MeterReading.objects.filter(user=request.user).order_by('-date')
 
     if request.method == 'POST':

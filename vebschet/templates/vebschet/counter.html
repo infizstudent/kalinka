@@ -17,6 +17,7 @@
             background-color: #ffffff;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
         h1 {
             text-align: center;
@@ -37,6 +38,11 @@
             <div class="form-group">
                 <label for="reading">Meter Reading:</label>
                 {{ form.reading }}
+                {% if form.reading.errors %}
+                    <div class="alert alert-danger mt-2">
+                        {{ form.reading.errors }}
+                    </div>
+                {% endif %}
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
